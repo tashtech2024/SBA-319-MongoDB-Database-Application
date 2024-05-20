@@ -11,6 +11,6 @@ try{
     console.log(e);
 }
 
-const db = conn.db('sample_training');
+const db = conn.db('SBA319');
 
 export default db;
