@@ -3,9 +3,8 @@ background-color: #fdc11f;
 }
 
 .container1 {
-    background-color: #fdc11f;
-    width: 300px;
-    border: 8px solid #0E0301;
-    padding: 50px;
-    margin: 20px;
+  border-radius: 44px;
+  background: linear-gradient(145deg, #ffcf21, #e4ae1c);
+  box-shadow:  30px 30px 60px #b68b16,
+               -30px -30px 60px #fff728;
   }
