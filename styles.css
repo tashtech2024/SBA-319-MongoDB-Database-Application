@@ -1,0 +1,11 @@
+body{
+background-color: #fdc11f;    
+}
+
+.container1 {
+    background-color: #fdc11f;
+    width: 300px;
+    border: 8px solid #0E0301;
+    padding: 50px;
+    margin: 20px;
+  }
