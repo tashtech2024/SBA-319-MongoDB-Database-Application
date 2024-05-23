@@ -1,7 +1,9 @@
-import {MongoClient } from "mongodb";
-import dotenv from 'dotenv'; 
+import { MongoClient } from "mongodb";
+import dotenv from 'dotenv';
 dotenv.config();
-const client = new MongoClient(process.env.ATLAS_URI) || "dd";
+
+const client = new MongoClient(process.env.ATLAS_URI) || "";
+
 
 let conn; 
 

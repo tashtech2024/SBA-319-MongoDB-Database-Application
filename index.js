@@ -1,6 +1,8 @@
 import express from "express"
 import dotenv from 'dotenv';
 import userRouter from './routes/users.js';
+import commentsRouter from './routes/comments.js'
+import productRouter from './routes/products.js';
 
 //* Init - dotenv package ===//
 dotenv.config();
@@ -12,19 +14,43 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 //? MiddleWares ============================//
+//* JSON Parser 
 app.use(express.json());
-//? Middleware Fuction == Global error handler middleware
-app.use((req, res, next ) =>{
-    console.log("Request from URL:" +req.url);
-next()
+app.use((req, res, next) => {
+    console.log("request from URL" + req.url);
+    next();
 });
+
+
 //? Routes =========///
 
-app.use('/users', userRouter)
+//* Users 
+app.get('/', (req, res) => {
+    console.log(req.body);
+    res.send('Users');
+});
+app.use('/users', userRouter);
 
-app.post('')
+//* Comments
+app.get('/', (req, res) => {
+    console.log(req.body);
+    res.send('Comments');
+});
+app.use('/comment', commentsRouter);
+
+//* Products
+app.get('/', (req, res) => {
+    console.log(req.body);
+    res.send('products');
+});
+app.use('/products', productRouter);
+
+//? Middleware Fuction == Global error handler middleware
+app.use((error, req, res, next) => {
+    res.status(500).send('Sever Error!')
+});
 
 //? PORT LISTENER ========///
-app.listen(PORT, () =>{
+app.listen(PORT, () => {
     console.log(`Server is running on port correctly ${PORT}`);
 })

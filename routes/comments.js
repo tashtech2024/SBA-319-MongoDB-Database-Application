@@ -1,23 +1,27 @@
-import express, { Router } from "express"
-const router = express.Router()
-import comments from "../data/comments.js"
+import express from "express";
+import db from "../db/conn.js";
+import { ObjectId } from "mongodb";
 
-router
-    .route("/")
-    .get((req, res) => {
-        res.json(comments)
-    })
+const router = express.Router();
 
-    .post((req, res) => {
-        if (req.body.content && req.body.userId){
-            const comment ={
-        id: comments[comments.length -1],
-        userId: req.body.userId,
-        postId: req.body.postId,
-        content: req.body.content
-    }
-    comments.push(comments)
-    res.json(comments[comments.length -1])
-        }
-    })
+//GET Comment
+router.get('/:id', async (req, res) => {
+const collection = await db.collection('users');                
+const query = {body: new ObjectId(req.params.id)};
+const result = await collection.findOne(query);
+
+if(!result) res.send('Not Found').status(404);
+else res.send(result).status(200);
+
+});
+// GET user by user_ID
+router.get('/shopper/:id', async (req, res) => {
+const collection = await db.collection("users");
+const query = { shopperId: Number (req.params.id) };
+const result = await collection.find(query);
+
+if (!result) res.send("Not found").status(404);
+else res.send(result).status(200);
+});
+
     export default router

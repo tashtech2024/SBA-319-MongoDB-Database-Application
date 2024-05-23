@@ -1,23 +1,28 @@
-import express, { Router } from "express"
-const router = express.Router()
-import products from "../routes/products.js"
+import express from "express";
+import db from "../db/conn.js";
+import { ObjectId } from "mongodb";
 
-router
-    .route("/")
-    .get((req, res) => {
-        res.json(products)
-    })
+const router = express.Router();
 
-    .post((req, res) => {
-        if (req.body.content && req.body.userId){
-            const comment ={
-        id: products[products.length -1],
-        userId: req.body.userId,
-        postId: req.body.postId,
-        content: req.body.content
-    }
-    products.push(products)
-    res.json(products[products.length -1])
-        }
-    })
+//Get Product 
+
+router.get("/:", async (req, res) => {
+    let collection = await db.collection("products");
+    const query = { _id: ObjectId(req.params.id) };
+    let result = await collection.findOne(query);
+
+    if (!result) res.send("Not found").status(404);
+    else res.send(result).status(200);
+  });
+
+  //add product 
+  router.post("/", async (req, res) => {
+    let collection = await db.collection("products");
+    let newDocument = req.body;
+    newDocument.date = new Date();
+    let result = await collection.insertOne(newDocument);
+    res.send(result).status(204);
+  });
+  
+
     export default router
