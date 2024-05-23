@@ -1,6 +1,6 @@
 import express from "express"
 import dotenv from 'dotenv';
-import userRouter from './routes/users.js';
+import userRouter from './routes/users.js'
 import commentsRouter from './routes/comments.js'
 import productRouter from './routes/products.js';
 

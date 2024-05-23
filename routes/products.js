@@ -23,6 +23,35 @@ router.get("/:", async (req, res) => {
     let result = await collection.insertOne(newDocument);
     res.send(result).status(204);
   });
+
+  router.route(":/id")
+.get ((req, res, next) =>{
+    const product = products.find((u) => u.id == req.params.id)
+    if (product) res.json(product)
+        else next ()
+})
+.patch((req, res, next)=>{
+    const product = products.find((u, i) =>{
+        if (u.id == req.params.id){
+            for (const key in req.body) {
+                product[i][key] = req.body[key]
+            }
+            return true
+        }
+    })
+    if (product) res.json(product)
+    else next()
+})
+.delete((req, res, next) =>{
+    const product = products.find((u, i) =>{
+        if (u.id == req.params.id){
+            product.splice(i, 1)
+            return true
+        }
+    })
+    if (product) res.json(product)
+    else next()
+});
   
 
     export default router
