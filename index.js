@@ -38,6 +38,7 @@ app.get('/', (req, res) => {
 });
 app.use('/comment', commentsRouter);
 
+
 //* Products
 app.get('/', (req, res) => {
     console.log(req.body);

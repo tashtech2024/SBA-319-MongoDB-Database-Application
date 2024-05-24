@@ -4,6 +4,11 @@ import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
+
+router.get("/products"), (req, res) => {
+  res.send('Get All products');
+};
+
 //Get Product 
 
 router.get("/:", async (req, res) => {
@@ -18,12 +23,13 @@ router.get("/:", async (req, res) => {
   //add product 
   router.post("/", async (req, res) => {
     let collection = await db.collection("products");
-    let newDocument = req.body;
+
     newDocument.date = new Date();
     let result = await collection.insertOne(newDocument);
     res.send(result).status(204);
   });
 
+  //GET, Patch , Delete
   router.route(":/id")
 .get ((req, res, next) =>{
     const product = products.find((u) => u.id == req.params.id)
